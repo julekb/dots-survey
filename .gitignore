@@ -1,0 +1,7 @@
+*.DS_Store
+
+jspsych-5.0.3/
+!jspsych-5.0.3/plugins/jspsych-similarity_modified.js
+
+img/
+data/
