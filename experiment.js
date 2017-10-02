@@ -3,7 +3,7 @@ const TIME_STIM = 500;
 const TIME_RESP = 10000;
 const entry_questions = ['Proszę podać adres e-mail. Posłuży on do ewentualnego kontaktu w przyszłości w przypadku kontynuacji badania', 'Proszę podać wiek'];
 const TRAINING = ['103', '145', '142', '013', '010', '127', '139', '154', '007', '163', '079', '130', '172', '133', '031', '178', '193', '184', '061', '037', '085', '121', '196', '112', '052', '019', '169', '088', '055', '151', '160'];
-const GROUP_ID = 'G1';// group ID
+const GROUP_ID = 'G1';//G1-grupa kontrolna  lub G2-grupa eksperymentalna
 
 
 jsPsych.data.addProperties({
@@ -44,27 +44,20 @@ function save_Data_mysql(data){
 
 var entry_instruction = {
 	type: 'instructions',
-	pages: ['Dzień dobry. Nazywam się[...]. Poniższe badanie zostało przygotowane do celów naukowych i jest częścią mojej pracy licencjackiej dotyczącej systemów komputerowych poprawiajacych komunikację między ludźmi.'+
-	' Wyniki badania pozostaną poufne i będą rozpatrywane anonimowo. Serdecznie zapraszam do udziału.',
-	'Jeśli zgadza sie Pani/Pan na wzięcie udziału w badaniu, proszę nacisnąć przycisk DALEJ. W przeciwnym wypadku proszę zamknąć stronę.'],
+	pages: ['instructions'],
 	show_clickable_nav: true,
-};
-var sorry = {
-	type: 'instructions',
-	pages: ['Niestety, badanie zostało już zakończone.'],
-	show_clickable_nav: false,
 };
 
 var final_instruction = {
 	type: 'instructions',
-	pages: ['To już koniec, dziękuję. Wszelkie pytania lub wątpliwości dotyczące eksperymentu proszę kierować na adres [...]'],
+	pages: ['thank you for participating'],
 };
 
 var instruction = {
 	type: 'instructions',
-	pages: ["<b> INSTRUKCJA:</b> <p>Badanie polega na szacowaniu liczby kropek, która pojawi się na rysunku. Za chwilę pojawi się seria obrazków oraz zaraz po każdym z nich suwak, za pomocą którego udziela się odpowiedzi. "+
-	'Przesunięcie suwaka w lewo oznacza mniejszą liczbę kropek, a w prawo większą. Dwa obrazki pod suwakiem oznaczają minimalną (maksymalne wychylenie suwaka w lewo) i maksymalną (maksymalne wychylenie suwaka w prawo) liczbę kropek. '+
-	"Uwaga, obrazki będą wyświetlane przez pół sekundy. Będą poprzedzone obrazkiem z krzyżykiem, a po nich pojawi się kratownica. Eksperyment składa sie z 30 obrazków. </p> <br/><b>Naciśnij przycisk 'Dalej' aby rozpocząć.</b>"],
+	pages: ["<b> INSTRUKCJA:</b> <p>Badanie polega na szacowaniu liczby kropek, która pojawi się na rysunku. Za chwilę pojawi się seria obrazków oraz zaraz po każdym z nich suwak, za pomocą którego udziela się odpowiedzi. "+
+	'Przesunięcie suwaka w lewo oznacza mniejszą liczbę kropek, a w prawo większą. Dwa obrazki pod suwakiem oznaczają minimalną (maksymalne wychylenie suwaka w lewo) i maksymalną (maksymalne wychylenie suwaka w prawo) liczbę kropek. '+
+	"Uwaga, obrazki będą wyświetlane przez pół sekundy. Będą poprzedzone obrazkiem z krzyżykiem, a po nich pojawi się kratownica. Eksperyment składa sie z 30 obrazków. </p> <br/><b>Naciśnij przycisk 'Dalej' aby rozpocząć.</b>"],
 	show_clickable_nav: true
 }
 
@@ -84,7 +77,7 @@ var text_response_loop = {
 };
 var additional_text_response = {
 	type: 'survey-text',
-	questions: ["Dziękuję za udział. Jeśli ma Pani/Pan jakieś uwagi odnośnie do badania to proszę o kontakt poprzez adres [...] lub wpisanie ich w poniższym okienku. </p> <b> ważne:</b> naciśnij 'Dodaj odpowiedzi' aby dodać swoje odpowiedzi"]
+	questions: ["comments? </p> <b> ważne:</b> naciśnij 'Dodaj odpowiedzi' aby dodać swoje odpowiedzi"]
 };
 var choice_response = {
 	type: 'survey-multi-choice',
@@ -95,8 +88,7 @@ var choice_response = {
 };
 
 
-// var timeline = [sorry]; if the survey if finished
-timeline = [];
+var timeline = [];
 timeline.push(entry_instruction);
 timeline.push(text_response);
 timeline.push(choice_response);
@@ -120,7 +112,6 @@ for ( i = 0; i < training_stim.length; i++) {
 		labels: ['7', '200'],
 		img_labels: ['img/dots/dots_007.png', 'img/dots/dots_200.png'], //img labels
 
-		// place for second phase of the survey if needed
 		//2 faza client.send_message(peer_id, "RESPONSE", $("#text_input").val());
         
 		timing_first_stim: TIME_STIM,
@@ -145,4 +136,7 @@ jsPsych.init({
 	}
 });
 
-timeline.push(final_instruction);
+
+
+
+// timeline.push(final_instruction);
